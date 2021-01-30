@@ -42,8 +42,10 @@ public class cameraMove : MonoBehaviour
             transform.position = new Vector3(3.3f, transform.position.y);
         else if (transform.position.x < 45)
             transform.position = new Vector3(33.3f, transform.position.y);
-        else
+        else if (transform.position.x < 75)
             transform.position = new Vector3(63.3f, transform.position.y);
+        else
+            transform.position = new Vector3(93.3f, transform.position.y);
 
         if (transform.position.y < 10)
             transform.position = new Vector3(transform.position.x, -0.5f);

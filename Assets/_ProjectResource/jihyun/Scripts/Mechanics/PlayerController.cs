@@ -5,6 +5,7 @@ using Platformer.Gameplay;
 using static Platformer.Core.Simulation;
 using Platformer.Model;
 using Platformer.Core;
+using UnityEngine.SceneManagement;
 
 // 버프 적용 샘플 코드... 버프/디버프에 따라 필요한 값은 인자(값/유지시간)을 같이 보내주면 됩니다.
 // peMng.add(player_effect.enumPlayerEffectType.HighJumping);
@@ -37,9 +38,7 @@ namespace Platformer.Mechanics
         protected bool stopJump;
         public Collider2D collider2d;
         public AudioSource audioSource;
-        [HideInInspector]
         public Health health;
-        [HideInInspector]
         public bool bPoison = false;
         public bool controlEnabled = true;
         player_effect_manager peMng;
@@ -179,9 +178,17 @@ namespace Platformer.Mechanics
                 DoubleArrowKeyDeltaTime += Time.deltaTime;
             }
 
+            if (Input.GetKey(KeyCode.R))
+                Reroad();
+
             base.Update();
         }
 
+        void Reroad()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        }
         void UpdateJumpState()
         {
             jump = false;
