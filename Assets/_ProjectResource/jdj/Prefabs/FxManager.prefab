@@ -44,7 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fxs:
-  - {fileID: 2665603213589496340, guid: f9a8b98bbd590c4468c8c46115ef663a, type: 3}
-  - {fileID: 7733249557170861786, guid: 901751d16baf2da4ab91f213c558f48f, type: 3}
-  - {fileID: 7560361314376394697, guid: 0e0e88b4851b99d40a45610f0fa0248f, type: 3}
-  - {fileID: 8249920961293135472, guid: 0dc7a66f9e6eb8945b2ad377cad6c659, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
