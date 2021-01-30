@@ -4132,13 +4132,13 @@ Transform:
   - {fileID: 408379885}
   - {fileID: 2064433511}
   - {fileID: 974422049}
+  - {fileID: 1960712924}
   - {fileID: 6587170230057972565}
   - {fileID: 393139632}
   - {fileID: 329655021}
   - {fileID: 562570570}
   - {fileID: 678075134}
   - {fileID: 282397506}
-  - {fileID: 1960712924}
   - {fileID: 734818672}
   - {fileID: 1513308489}
   m_Father: {fileID: 1959659021}
@@ -7852,38 +7852,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4446444065922607897, guid: ca4079b8e6f154ef684313093fe1cb49,
         type: 3}
-      propertyPath: jumpForce
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 4446444065922607897, guid: ca4079b8e6f154ef684313093fe1cb49,
-        type: 3}
       propertyPath: jumpTakeOffSpeed
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4446444065922607900, guid: ca4079b8e6f154ef684313093fe1cb49,
         type: 3}
       propertyPath: m_Name
       value: player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4446444065922607901, guid: ca4079b8e6f154ef684313093fe1cb49,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.537025
-      objectReference: {fileID: 0}
-    - target: {fileID: 4446444065922607901, guid: ca4079b8e6f154ef684313093fe1cb49,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1.9513264
-      objectReference: {fileID: 0}
-    - target: {fileID: 4446444065922607901, guid: ca4079b8e6f154ef684313093fe1cb49,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.03165841
-      objectReference: {fileID: 0}
-    - target: {fileID: 4446444065922607901, guid: ca4079b8e6f154ef684313093fe1cb49,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: 0.9756632
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca4079b8e6f154ef684313093fe1cb49, type: 3}
@@ -21486,7 +21461,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 535639204}
-  m_RootOrder: 10
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &1960712925
 SortingGroup:

@@ -128,7 +128,7 @@ MonoBehaviour:
   jumpForce: 600
   keyCount: 0
   maxSpeed: 4
-  jumpTakeOffSpeed: 6
+  jumpTakeOffSpeed: 10
   jumpState: 0
   collider2d: {fileID: 4446444065922607901}
   audioSource: {fileID: 0}
@@ -167,7 +167,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.38541666}
+  m_Offset: {x: 0.03165841, y: 0.43377972}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -178,5 +178,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.7708333}
+  m_Size: {x: 0.537025, y: 0.86755943}
   m_EdgeRadius: 0
