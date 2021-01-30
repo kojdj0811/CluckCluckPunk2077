@@ -14,5 +14,9 @@ public class HowToUseFxManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.W)) {
             EventManager.TriggerEvent(new FxEvent(FxCode.Effect_Missile_Basic3, transform.position, transform.rotation));
         }
+
+        if(Input.GetKeyDown(KeyCode.E)) {
+            EventManager.TriggerEvent(new FxEvent(FxCode.Effect_Missile_Lazer1, transform.position, transform.rotation));
+        }
     }
 }
