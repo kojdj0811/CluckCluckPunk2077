@@ -56,9 +56,10 @@ public class CsSoundManager : MonoBehaviour
 
 
     private void Awake() {
-        if(S != null)
+        if(S != null) {
             DestroyImmediate(gameObject);
-
+            return;
+        }
 
         S = this;
 

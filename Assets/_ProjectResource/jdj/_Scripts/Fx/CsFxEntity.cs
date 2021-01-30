@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class CsFxEntity : MonoBehaviour
 {
-   public float lifetime;
 
-   
+    [SerializeField]
+    private ParticleSystem myParticleSystem;
+
+
+    private float lifetime;
+
+    private void Awake() {
+        lifetime = myParticleSystem.main.duration;
+        if(lifetime != 0.0f)
+            Destroy(gameObject, lifetime);   
+    }
 }
