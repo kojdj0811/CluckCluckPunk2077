@@ -6,7 +6,7 @@ public class cameraMove : MonoBehaviour
 {
     public float cameraSpeed = 0.3f, shakeRange_LR = 1.0f, shakeSpeed_LR = 0.4f;
     public float shakeRange_UD = 1.0f, shakeSpeed_UD = 0.4f;
-    public GameObject player;
+    public GameObject player, chick;
     Vector3 camPos;
 
     void Start()
