@@ -25,9 +25,13 @@ public struct PrintLogEvent : IEvent
 public struct FxEvent : IEvent {
 
     public FxCode fxType;
+    public Vector3 fxWorldPosition;
+    public Quaternion fxWorldRotation;
 
-    public FxEvent (FxCode fxType) {
+    public FxEvent (FxCode fxType, Vector3 fxWorldPosition, Quaternion fxWorldRotation) {
         this.fxType = fxType;
+        this.fxWorldPosition = fxWorldPosition;
+        this.fxWorldRotation = fxWorldRotation;
     }
 }
 

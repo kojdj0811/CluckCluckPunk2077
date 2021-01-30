@@ -5,18 +5,33 @@ using UnityEngine;
 
 
 public enum FxCode {
-    None = 0,
-    PlayerMove,
-    PlayerJump,
-    PlayerLanding,
-
+    None = -1,
+    Effect_Missile_Basic1,
+    Effect_Missile_Basic2,
+    Effect_Missile_Basic3,
 }
 
 public class CsFxManager : MonoBehaviour
 {
+    private static CsFxManager S;
+
+
+    [SerializeField]
+    private List<GameObject> fxs;
+
+
     void Awake() {
+        if(S != null) {
+            DestroyImmediate(gameObject);
+            return;
+        }
+
+
         EventManager.StartListening(typeof(FxEvent), FxListener);
-        
+    }
+
+    private void OnDestroy() {
+        EventManager.StopListening(typeof(FxEvent), FxListener);
     }
 
 
@@ -24,22 +39,6 @@ public class CsFxManager : MonoBehaviour
 
     private void FxListener (IEvent param) {
         FxEvent fxEvent = (FxEvent)param;
-
-        switch (fxEvent.fxType)
-        {
-            case FxCode.PlayerMove :
-                break;
-
-            case FxCode.PlayerJump :
-                break;
-
-            case FxCode.PlayerLanding :
-                break;
-
-
-            case FxCode.None :
-            default:
-                break;
-        }
+        GameObject go = Instantiate(fxs[(int)fxEvent.fxType], fxEvent.fxWorldPosition, fxEvent.fxWorldRotation, transform);
     }
 }
