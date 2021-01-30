@@ -34,6 +34,7 @@ namespace Platformer.Mechanics
         public Health health;
         public bool controlEnabled = true;
 
+        public float lastY = 0;
         protected bool jump;
         protected Vector2 move;
         protected SpriteRenderer spriteRenderer;
@@ -57,7 +58,9 @@ namespace Platformer.Mechanics
             {
                 move.x = Input.GetAxis("Horizontal");
                 if (jumpState == JumpState.Grounded && Input.GetButtonDown("Jump"))
+                {
                     jumpState = JumpState.PrepareToJump;
+                }
                 else if (Input.GetButtonUp("Jump"))
                 {
                     stopJump = true;
@@ -69,6 +72,8 @@ namespace Platformer.Mechanics
                 move.x = 0;
             }
             UpdateJumpState();
+                
+            
             base.Update();
         }
 
@@ -78,11 +83,24 @@ namespace Platformer.Mechanics
             switch (jumpState)
             {
                 case JumpState.PrepareToJump:
+                    //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("player"), LayerMask.NameToLayer("ground"), true);
+                    // GetComponent<Collider2D>().enabled = false;
                     jumpState = JumpState.Jumping;
+                    lastY = transform.position.y-1;
                     jump = true;
                     stopJump = false;
                     break;
                 case JumpState.Jumping:
+                    //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("player"), LayerMask.NameToLayer("ground"), false);
+                    // GetComponent<Collider2D>().enabled = true;
+                    Ray2D ray = new Ray2D(new Vector2(transform.position.x, transform.position.y + 1f), Vector2.up);
+                    RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                    if (hit.collider != null)
+                    {
+                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("ground"))
+                            GetComponent<Collider2D>().enabled = false;
+                    }
+
                     if (!IsGrounded)
                     {
                         Schedule<PlayerJumped>().player = this;
@@ -90,6 +108,15 @@ namespace Platformer.Mechanics
                     }
                     break;
                 case JumpState.InFlight:
+                    if( lastY <= transform.position.y )
+                    {
+                        lastY = transform.position.y;
+                    }
+                    else
+                    {
+                        GetComponent<Collider2D>().enabled = true;
+                    }
+
                     if (IsGrounded)
                     {
                         Schedule<PlayerLanded>().player = this;
