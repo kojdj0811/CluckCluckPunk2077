@@ -11,6 +11,8 @@ TagManager:
   - block_ground
   - block
   - exit_door
+  - key
+  - chick
   layers:
   - Default
   - TransparentFX
@@ -20,9 +22,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - player
+  - chick
+  - enemy
   - 
   - 
   - block
