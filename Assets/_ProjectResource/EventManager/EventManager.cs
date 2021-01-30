@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
@@ -21,7 +22,36 @@ public struct PrintLogEvent : IEvent
 
 
 #region Events
+public struct FxEvent : IEvent {
 
+    public FxCode fxType;
+
+    public FxEvent (FxCode fxType) {
+        this.fxType = fxType;
+    }
+}
+
+public struct SoundEvent : IEvent {
+
+    public SoundType soundType;
+    public BgmSoundCode bgmSoundCode;
+    public FxSoundCode fxSoundCode;
+    public Vector3 fxSoundWorldPosition;
+
+    public SoundEvent (SoundType soundType, BgmSoundCode bgmSoundCode) {
+        this.soundType = soundType;
+        this.bgmSoundCode = bgmSoundCode;
+        this.fxSoundCode = FxSoundCode.None;
+        fxSoundWorldPosition = Vector3.zero;
+    }
+
+    public SoundEvent (SoundType soundType, FxSoundCode fxSoundCode, Vector3 fxSoundPosition) {
+        this.soundType = soundType;
+        this.bgmSoundCode = BgmSoundCode.None;
+        this.fxSoundCode = fxSoundCode;
+        this.fxSoundWorldPosition = fxSoundPosition;
+    }
+}
 
 #endregion //Events
 
