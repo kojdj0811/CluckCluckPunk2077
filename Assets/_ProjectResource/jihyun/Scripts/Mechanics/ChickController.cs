@@ -19,11 +19,12 @@ namespace Platformer.Mechanics
         public float skillSpeed;
         protected bool jump;
 
+
         internal AnimationController control;
         internal Collider2D _collider;
         internal AudioSource _audio;
         SpriteRenderer spriteRenderer;
-        GameObject player;
+        public GameObject player;
         PlayerController playerc;
         Rigidbody2D rb;
         float lastY;
@@ -48,16 +49,11 @@ namespace Platformer.Mechanics
             spriteRenderer = GetComponent<SpriteRenderer>();
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("player"), LayerMask.NameToLayer("chick"), true);
             layerWalkUpBlock = LayerMask.NameToLayer("block");
+            playerc = player.GetComponent<PlayerController>();
         }
 
         void Update()
         {
-            if( player == null)
-            {
-                player = GameObject.FindGameObjectWithTag("Player");
-                playerc = player.GetComponent<PlayerController>();
-            }
-            else
             {
                 float x_dist = Mathf.Abs(player.transform.position.x -  transform.position.x);
                 float y_diff = player.transform.position.y - transform.position.y;

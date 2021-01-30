@@ -22,7 +22,8 @@ namespace Platformer.Mechanics
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
         public int jumpForce = 500;
-        public int keyCount;
+        [HideInInspector]
+        public int keyCount = 0;
 
         /// <summary>
         /// Max horizontal speed of the player.
@@ -72,6 +73,11 @@ namespace Platformer.Mechanics
             layerWalkUpBlock = LayerMask.NameToLayer("block");
             run = false;
         }
+        public void ResetKeyCountFromInitStage()
+        {
+            keyCount = 0;
+            peMng.startStage();
+        }
 
         public void AddHealth(float _value)
         {
@@ -95,24 +101,26 @@ namespace Platformer.Mechanics
             UpdateJumpState();
         }
 
-        void OnCollisionEnter2D(Collision2D collision)
+        void OnTriggerEnter2D(Collider2D collision)
         {
             var tagName = collision.gameObject.tag;
             if (tagName == "enemy")
             {
                 health.Decrement();
-            }else if(tagName == "block_cloud" && jumpState == JumpState.Grounded)
-            {
-
-            }else if(tagName == "block_water" && jumpState == JumpState.Grounded)  // 물 블러. 3초 동안 30% 이동 속도 감소
+            }
+            if(tagName == "block_cloud" && jumpState == JumpState.Grounded)
             {
 
             }
-            else if (tagName == "block_thorn" && jumpState == JumpState.Grounded)  // 가시 블럭. 데미지 0.5
+            if(tagName == "block_water" && jumpState == JumpState.Grounded)  // 물 블러. 3초 동안 30% 이동 속도 감소
             {
 
             }
-            else if (tagName == "key")
+            if (tagName == "block_thorn" && jumpState == JumpState.Grounded)  // 가시 블럭. 데미지 0.5
+            {
+
+            }
+            if (tagName == "key")
             {
                 keyCount++;
                 collision.gameObject.SetActive(false);

@@ -4,22 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - chick
-  - block
-  - block_crack
-  - enemy
-  - missile
-  - missile_lazer
-  - missile_ice
-  - key
-  - exit_door
-  - item_recovery
-  - item_poison
-  - item_shield
-  - block_ground
-  - block_cloud
   - block_thorn
+  - block_crack
+  - block_cloud
   - block_water
+  - block_ground
+  - block
+  - exit_door
+  - key
+  - chick
   layers:
   - Default
   - TransparentFX
@@ -29,17 +22,17 @@ TagManager:
   - UI
   - 
   - 
-  - 
   - player
   - chick
-  - block
-  - block_crack
   - enemy
   - 
   - 
-  - 
-  - 
-  - 
+  - block
+  - block_thorn
+  - block_crack
+  - block_cloud
+  - block_water
+  - block_ground
   - 
   - 
   - 
