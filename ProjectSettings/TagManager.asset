@@ -10,6 +10,7 @@ TagManager:
   - block_water
   - block_ground
   - block
+  - exit_door
   layers:
   - Default
   - TransparentFX
