@@ -151,6 +151,7 @@ MonoBehaviour:
   jumpAudio: {fileID: 0}
   respawnAudio: {fileID: 0}
   ouchAudio: {fileID: 0}
+  keyCount: 0
   maxSpeed: 7
   jumpTakeOffSpeed: 7
   jumpState: 0
