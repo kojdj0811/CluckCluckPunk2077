@@ -4356,6 +4356,12 @@ Transform:
   m_Father: {fileID: 1959659021}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &610760655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3191180073465823434, guid: 3bef65dfa2b534a08b28b20f5020862c,
+    type: 3}
+  m_PrefabInstance: {fileID: 221850554}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &612134658
 GameObject:
   m_ObjectHideFlags: 0
@@ -7680,6 +7686,7 @@ MonoBehaviour:
   shakeRange_UD: 1
   shakeSpeed_UD: 0.4
   player: {fileID: 880607620}
+  chick: {fileID: 610760655}
 --- !u!1 &871598701
 GameObject:
   m_ObjectHideFlags: 0
@@ -7852,13 +7859,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4446444065922607897, guid: ca4079b8e6f154ef684313093fe1cb49,
         type: 3}
+      propertyPath: maxSpeed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4446444065922607897, guid: ca4079b8e6f154ef684313093fe1cb49,
+        type: 3}
       propertyPath: jumpForce
       value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 4446444065922607897, guid: ca4079b8e6f154ef684313093fe1cb49,
         type: 3}
       propertyPath: jumpTakeOffSpeed
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4446444065922607900, guid: ca4079b8e6f154ef684313093fe1cb49,
         type: 3}
