@@ -9,6 +9,7 @@ TagManager:
   - block_cloud
   - block_water
   - block_ground
+  - block
   layers:
   - Default
   - TransparentFX
