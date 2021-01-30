@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class gate : MonoBehaviour
 {
-    public GameObject Cam, stageManger;
+    public GameObject Cam, stageManger, Player;
     public string direction;
-    public int index;
+    public int index, keyCond;
     Vector3 dir;
     cameraMove cam;
 
@@ -26,12 +26,14 @@ public class gate : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        int playerKeyCount = Player.GetComponent<Platformer.Mechanics.PlayerController>().keyCount;
+        if (other.gameObject.transform == Player.gameObject.transform && playerKeyCount == keyCond)
         {
+            Player.GetComponent<Platformer.Mechanics.PlayerController>().keyCount = 0;
             stageManger.GetComponent<StageChanger>().stageChanger(index);
-                        cam.StartCoroutine(cam.move(dir));
+            cam.StartCoroutine(cam.move(dir));
             //            cam.StartCoroutine(cam.shakeLeftRight());
-//            cam.StartCoroutine(cam.shakeUpDown());
+            //            cam.StartCoroutine(cam.shakeUpDown());
 
         }
     }

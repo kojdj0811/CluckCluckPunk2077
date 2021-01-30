@@ -11,6 +11,7 @@ TagManager:
   - block_ground
   - block
   - exit_door
+  - key
   layers:
   - Default
   - TransparentFX

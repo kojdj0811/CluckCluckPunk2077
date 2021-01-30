@@ -18,6 +18,8 @@ namespace Platformer.Mechanics
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
 
+        public int keyCount;
+
         /// <summary>
         /// Max horizontal speed of the player.
         /// </summary>
@@ -102,6 +104,15 @@ namespace Platformer.Mechanics
             }
         }
 
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.tag == "key")
+            {
+                keyCount++;
+                other.gameObject.SetActive(false);
+            }
+        }
+
         protected override void ComputeVelocity()
         {
             if (jump && IsGrounded)
@@ -138,4 +149,5 @@ namespace Platformer.Mechanics
             Landed
         }
     }
+
 }
