@@ -323,9 +323,9 @@ GameObject:
   - component: {fileID: 973463904}
   - component: {fileID: 973463903}
   - component: {fileID: 973463902}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: block
-  m_TagString: Untagged
+  m_TagString: block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -647,9 +647,9 @@ GameObject:
   - component: {fileID: 1691359162}
   - component: {fileID: 1691359161}
   - component: {fileID: 1691359160}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: block (1)
-  m_TagString: block_ground
+  m_TagString: block_crack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

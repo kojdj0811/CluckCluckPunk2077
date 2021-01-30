@@ -126,14 +126,15 @@ MonoBehaviour:
   respawnAudio: {fileID: 0}
   ouchAudio: {fileID: 0}
   jumpForce: 600
-  maxSpeed: 7
-  jumpTakeOffSpeed: 7
+  keyCount: 0
+  maxSpeed: 4
+  jumpTakeOffSpeed: 6
   jumpState: 0
   collider2d: {fileID: 4446444065922607901}
   audioSource: {fileID: 0}
   health: {fileID: 0}
+  bPoison: 0
   controlEnabled: 1
-  lastY: 0
 --- !u!95 &4446444065922607898
 Animator:
   serializedVersion: 3

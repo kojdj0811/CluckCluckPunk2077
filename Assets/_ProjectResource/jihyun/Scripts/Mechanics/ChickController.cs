@@ -24,6 +24,7 @@ namespace Platformer.Mechanics
         internal AudioSource _audio;
         SpriteRenderer spriteRenderer;
         GameObject player;
+        PlayerController playerc;
         Rigidbody2D rb;
         float lastY;
         float startX, endX;
@@ -49,21 +50,12 @@ namespace Platformer.Mechanics
             layerWalkUpBlock = LayerMask.NameToLayer("block");
         }
 
-        void OnCollisionEnter2D(Collision2D collision)
-        {
-            var player = collision.gameObject.GetComponent<PlayerController>();
-            if (player != null)
-            {
-                var ev = Schedule<PlayerEnemyCollision>();
-                ev.player = player;
-            }
-        }
-
         void Update()
         {
             if( player == null)
             {
                 player = GameObject.FindGameObjectWithTag("Player");
+                playerc = player.GetComponent<PlayerController>();
             }
             else
             {
@@ -107,7 +99,7 @@ namespace Platformer.Mechanics
                         GetComponent<Collider2D>().enabled = true;
                     }
                 }
-                if (Input.GetKey(KeyCode.DownArrow))
+                if (playerc.bPoison == false && Input.GetKey(KeyCode.DownArrow))
                 {
                     if (player.transform.position.x - transform.position.x > 0)
                     {
@@ -117,7 +109,7 @@ namespace Platformer.Mechanics
                     {
                         control.move.x = Mathf.Clamp(endX - transform.position.x, -1, 1);
                     }
-                }else if(Input.GetKey(KeyCode.UpArrow)){
+                }else if(playerc.bPoison == false && Input.GetKey(KeyCode.UpArrow)){
                     control.move.x = Mathf.Clamp(player.transform.position.x - transform.position.x, -1, 1);
                 }
             }

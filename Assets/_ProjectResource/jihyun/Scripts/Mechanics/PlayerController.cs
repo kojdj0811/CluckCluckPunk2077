@@ -6,6 +6,10 @@ using static Platformer.Core.Simulation;
 using Platformer.Model;
 using Platformer.Core;
 
+// 버프 적용 샘플 코드... 버프/디버프에 따라 필요한 값은 인자(값/유지시간)을 같이 보내주면 됩니다.
+// peMng.add(player_effect.enumPlayerEffectType.HighJumping);
+
+
 namespace Platformer.Mechanics
 {
     /// <summary>
@@ -18,6 +22,7 @@ namespace Platformer.Mechanics
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
         public int jumpForce = 500;
+        public int keyCount;
 
         /// <summary>
         /// Max horizontal speed of the player.
@@ -34,7 +39,10 @@ namespace Platformer.Mechanics
         public AudioSource audioSource;
         [HideInInspector]
         public Health health;
+        [HideInInspector]
+        public bool bPoison = false;
         public bool controlEnabled = true;
+        player_effect_manager peMng;
 
         float lastY = 0;
         bool jump;
@@ -59,9 +67,32 @@ namespace Platformer.Mechanics
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody2D>();
+            peMng = gameObject.AddComponent<player_effect_manager>();
 
             layerWalkUpBlock = LayerMask.NameToLayer("block");
             run = false;
+        }
+
+        public void AddHealth(float _value)
+        {
+            if(_value < 0) // hurt!!
+            {
+                health.Decrement( -_value);
+                animator.SetTrigger("hurt");
+                if (health.IsAlive == false)
+                    animator.SetBool("dead", true);
+            }
+            else  // healing
+            {
+                health.Increment(_value);
+            }
+        }
+
+        public void HighJumping()
+        {
+            jumpState = JumpState.Jumping;
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
+            UpdateJumpState();
         }
 
         void OnCollisionEnter2D(Collision2D collision)
@@ -70,25 +101,23 @@ namespace Platformer.Mechanics
             if (tagName == "enemy")
             {
                 health.Decrement();
-            }else if(tagName == "block_cloud")
+            }else if(tagName == "block_cloud" && jumpState == JumpState.Grounded)
             {
-                //  jump highly
-                if (jumpState == JumpState.Grounded)
-                {
-                    jumpState = JumpState.Jumping;
-                    rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
-                    UpdateJumpState();
-                }
-            }else if(tagName == "block_water")  // 물 블러. 3초 동안 30% 이동 속도 감소
+
+            }else if(tagName == "block_water" && jumpState == JumpState.Grounded)  // 물 블러. 3초 동안 30% 이동 속도 감소
             {
 
             }
-            else if (tagName == "block_thorn")  // 가시 블럭. 데미지 0.5
+            else if (tagName == "block_thorn" && jumpState == JumpState.Grounded)  // 가시 블럭. 데미지 0.5
             {
 
+            }
+            else if (tagName == "key")
+            {
+                keyCount++;
+                collision.gameObject.SetActive(false);
             }
         }
-
 
         protected override void Update()
         {
@@ -111,7 +140,7 @@ namespace Platformer.Mechanics
             }
             UpdateJumpState();
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+            if (bPoison== false && (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) )
             {
                 if (bFirstArrowKey == false)
                 {
@@ -132,7 +161,7 @@ namespace Platformer.Mechanics
             }
             else if (run == true && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) )
             {
-                Debug.Log("RUN !!!");
+                // Debug.Log("RUN !!!");
             }else if( (bFirstArrowKey== true && (DoubleArrowKeyDeltaTime) > 0.4) || run == true)
             {
                 DoubleArrowKeyDeltaTime = 0;
@@ -141,7 +170,6 @@ namespace Platformer.Mechanics
             }else if(bFirstArrowKey == true)
             {
                 DoubleArrowKeyDeltaTime += Time.deltaTime;
-                Debug.Log("delta = " + DoubleArrowKeyDeltaTime);
             }
 
             base.Update();
