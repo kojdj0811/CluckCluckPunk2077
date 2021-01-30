@@ -6,6 +6,10 @@ using static Platformer.Core.Simulation;
 using Platformer.Model;
 using Platformer.Core;
 
+// 버프 적용 샘플 코드... 버프/디버프에 따라 필요한 값은 인자(값/유지시간)을 같이 보내주면 됩니다.
+// peMng.add(player_effect.enumPlayerEffectType.HighJumping);
+
+
 namespace Platformer.Mechanics
 {
     /// <summary>
@@ -17,7 +21,7 @@ namespace Platformer.Mechanics
         public AudioClip jumpAudio;
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
-
+        public int jumpForce = 500;
         public int keyCount;
 
         /// <summary>
@@ -31,16 +35,27 @@ namespace Platformer.Mechanics
 
         public JumpState jumpState = JumpState.Grounded;
         protected bool stopJump;
-        /*internal new*/ public Collider2D collider2d;
-        /*internal new*/ public AudioSource audioSource;
+        public Collider2D collider2d;
+        public AudioSource audioSource;
+        [HideInInspector]
         public Health health;
+        [HideInInspector]
+        public bool bPoison = false;
         public bool controlEnabled = true;
+        player_effect_manager peMng;
 
-        protected bool jump;
-        protected Vector2 move;
-        protected SpriteRenderer spriteRenderer;
-        protected internal Animator animator;
-        protected readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
+        float lastY = 0;
+        bool jump;
+        bool run;
+        Vector2 move;
+        SpriteRenderer spriteRenderer;
+        internal Animator animator;
+        readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
+        int layerWalkUpBlock;
+        Rigidbody2D rb;
+
+        float DoubleArrowKeyDeltaTime = 0;
+        bool bFirstArrowKey = false;
 
         public Bounds Bounds => collider2d.bounds;
 
@@ -51,6 +66,64 @@ namespace Platformer.Mechanics
             collider2d = GetComponent<Collider2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
+            rb = GetComponent<Rigidbody2D>();
+            peMng = gameObject.AddComponent<player_effect_manager>();
+
+            layerWalkUpBlock = LayerMask.NameToLayer("block");
+            run = false;
+        }
+
+        public void AddHealth(float _value)
+        {
+            if(_value < 0) // hurt!!
+            {
+                health.Decrement( -_value);
+                animator.SetTrigger("hurt");
+                if (health.IsAlive == false)
+                    animator.SetBool("dead", true);
+            }
+            else  // healing
+            {
+                health.Increment(_value);
+            }
+        }
+
+        public void HighJumping()
+        {
+            jumpState = JumpState.Jumping;
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
+            UpdateJumpState();
+        }
+
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            var tagName = collision.gameObject.tag;
+            if (tagName == "enemy")
+            {
+                health.Decrement();
+            }
+            if (tagName == "block_cloud" && jumpState == JumpState.Grounded)
+            {
+
+            }
+            if (tagName == "block_water" && jumpState == JumpState.Grounded)  // 물 블러. 3초 동안 30% 이동 속도 감소
+            {
+
+            }
+            if (tagName == "block_thorn" && jumpState == JumpState.Grounded)  // 가시 블럭. 데미지 0.5
+            {
+
+            }
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.tag == "key")
+            {
+                keyCount++;
+                other.gameObject.SetActive(false);
+            }
+
         }
 
         protected override void Update()
@@ -59,7 +132,9 @@ namespace Platformer.Mechanics
             {
                 move.x = Input.GetAxis("Horizontal");
                 if (jumpState == JumpState.Grounded && Input.GetButtonDown("Jump"))
+                {
                     jumpState = JumpState.PrepareToJump;
+                }
                 else if (Input.GetButtonUp("Jump"))
                 {
                     stopJump = true;
@@ -71,6 +146,39 @@ namespace Platformer.Mechanics
                 move.x = 0;
             }
             UpdateJumpState();
+
+            if (bPoison== false && (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) )
+            {
+                if (bFirstArrowKey == false)
+                {
+                    DoubleArrowKeyDeltaTime = Time.deltaTime;
+                    bFirstArrowKey = true;
+                    run = false;
+                } 
+                else if(DoubleArrowKeyDeltaTime < 0.4)
+                {
+                    run = true;
+                }
+                else
+                {
+                    DoubleArrowKeyDeltaTime = 0;
+                    bFirstArrowKey = false;
+                    run = false;
+                }
+            }
+            else if (run == true && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) )
+            {
+                // Debug.Log("RUN !!!");
+            }else if( (bFirstArrowKey== true && (DoubleArrowKeyDeltaTime) > 0.4) || run == true)
+            {
+                DoubleArrowKeyDeltaTime = 0;
+                bFirstArrowKey = false;
+                run = false;
+            }else if(bFirstArrowKey == true)
+            {
+                DoubleArrowKeyDeltaTime += Time.deltaTime;
+            }
+
             base.Update();
         }
 
@@ -80,11 +188,22 @@ namespace Platformer.Mechanics
             switch (jumpState)
             {
                 case JumpState.PrepareToJump:
+                    //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("player"), LayerMask.NameToLayer("ground"), true);
                     jumpState = JumpState.Jumping;
+                    lastY = transform.position.y;
                     jump = true;
                     stopJump = false;
                     break;
                 case JumpState.Jumping:
+                    //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("player"), LayerMask.NameToLayer("ground"), false);
+                    Ray2D ray = new Ray2D(new Vector2(transform.position.x, transform.position.y + 1f), Vector2.up);
+                    RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                    if (hit.collider != null)
+                    {
+                        if (hit.collider.gameObject.layer == layerWalkUpBlock)
+                            GetComponent<Collider2D>().enabled = false;
+                    }
+
                     if (!IsGrounded)
                     {
                         Schedule<PlayerJumped>().player = this;
@@ -92,6 +211,15 @@ namespace Platformer.Mechanics
                     }
                     break;
                 case JumpState.InFlight:
+                    if( lastY <= transform.position.y )
+                    {
+                        lastY = transform.position.y;
+                    }
+                    else
+                    {
+                        GetComponent<Collider2D>().enabled = true;
+                    }
+
                     if (IsGrounded)
                     {
                         Schedule<PlayerLanded>().player = this;
@@ -104,14 +232,6 @@ namespace Platformer.Mechanics
             }
         }
 
-        void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.tag == "key")
-            {
-                keyCount++;
-                other.gameObject.SetActive(false);
-            }
-        }
 
         protected override void ComputeVelocity()
         {

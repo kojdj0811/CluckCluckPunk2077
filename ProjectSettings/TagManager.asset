@@ -12,6 +12,7 @@ TagManager:
   - block
   - exit_door
   - key
+  - chick
   layers:
   - Default
   - TransparentFX
@@ -25,13 +26,13 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - block_ground
   - block
   - block_thorn
   - block_crack
   - block_cloud
   - block_water
-  - block_ground
+  - 
   - 
   - 
   - 
