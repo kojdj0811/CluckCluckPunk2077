@@ -7,8 +7,9 @@ using UnityEngine;
 public enum FxCode {
     None = -1,
     Effect_Missile_Basic1,
-    Effect_Missile_Basic2,
     Effect_Missile_Basic3,
+    Effect_Missile_Ice3,
+    Effect_Missile_Lazer1,
 }
 
 public class CsFxManager : MonoBehaviour

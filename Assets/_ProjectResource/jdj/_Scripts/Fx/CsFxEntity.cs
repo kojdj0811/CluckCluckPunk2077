@@ -9,9 +9,9 @@ public class CsFxEntity : MonoBehaviour
     private ParticleSystem myParticleSystem;
 
 
-    private float lifetime;
+    public float lifetime;
 
-    private void Awake() {
+    public  virtual void Awake() {
         lifetime = myParticleSystem.main.duration;
         if(lifetime != 0.0f)
             Destroy(gameObject, lifetime);   
