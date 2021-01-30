@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - block_thorn
+  - block_crack
+  - block_cloud
+  - block_water
+  - block_ground
+  - block
   layers:
   - Default
   - TransparentFX
@@ -18,12 +24,12 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - block
+  - block_thorn
+  - block_crack
+  - block_cloud
+  - block_water
+  - block_ground
   - 
   - 
   - 
