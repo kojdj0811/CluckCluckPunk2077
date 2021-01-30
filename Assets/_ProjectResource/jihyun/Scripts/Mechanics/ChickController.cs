@@ -27,7 +27,6 @@ namespace Platformer.Mechanics
         PlayerController playerc;
         Rigidbody2D rb;
         float lastY;
-        float lastJumpTime; // 중복점프 되지 않게 임시 조치... 
         float startX, endX;
         int layerWalkUpBlock;
 
@@ -50,12 +49,11 @@ namespace Platformer.Mechanics
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("player"), LayerMask.NameToLayer("chick"), true);
             layerWalkUpBlock = LayerMask.NameToLayer("block");
             playerc = player.GetComponent<PlayerController>();
-            lastJumpTime = 0;
+
         }
 
         void Update()
         {
-            lastJumpTime += Time.deltaTime;
                 float x_dist = Mathf.Abs(player.transform.position.x -  transform.position.x);
                 float y_diff = player.transform.position.y - transform.position.y;
                 if (x_dist > minDistanceXFromPlayer)
@@ -72,7 +70,7 @@ namespace Platformer.Mechanics
                     {
                         control.move.x = Mathf.Clamp(player.transform.position.x - transform.position.x, -1, 1);
                     }else
-                    if (rb.velocity.y == 0 && lastJumpTime > 2f) {
+                    if (rb.velocity.y == 0) {
                         Ray2D ray = new Ray2D(new Vector2(transform.position.x, transform.position.y + 1f), Vector2.up);
                         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
                         lastY = transform.position.y-1;
@@ -83,7 +81,6 @@ namespace Platformer.Mechanics
                         }
 
                         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
-                    lastJumpTime = 0;
                     }
                 }
                 if(rb.velocity.y > 0)
