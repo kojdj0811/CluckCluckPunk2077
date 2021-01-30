@@ -22,17 +22,17 @@ TagManager:
   - UI
   - 
   - 
+  - player
+  - chick
+  - enemy
   - 
   - 
-  - 
-  - 
-  - block_ground
   - block
   - block_thorn
   - block_crack
   - block_cloud
   - block_water
-  - 
+  - block_ground
   - 
   - 
   - 

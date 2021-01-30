@@ -48,16 +48,12 @@ namespace Platformer.Mechanics
             spriteRenderer = GetComponent<SpriteRenderer>();
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("player"), LayerMask.NameToLayer("chick"), true);
             layerWalkUpBlock = LayerMask.NameToLayer("block");
+            playerc = player.GetComponent<PlayerController>();
+
         }
 
         void Update()
         {
-            if( player == null)
-            {
-                playerc = player.GetComponent<PlayerController>();
-            }
-            else
-            {
                 float x_dist = Mathf.Abs(player.transform.position.x -  transform.position.x);
                 float y_diff = player.transform.position.y - transform.position.y;
                 if (x_dist > minDistanceXFromPlayer)
@@ -98,19 +94,21 @@ namespace Platformer.Mechanics
                         GetComponent<Collider2D>().enabled = true;
                     }
                 }
-                if (playerc.bPoison == false && Input.GetKey(KeyCode.DownArrow))
+            if (playerc.bPoison == false && Input.GetKey(KeyCode.DownArrow))
+            {
+                if (player.transform.position.x - transform.position.x > 0)
                 {
-                    if (player.transform.position.x - transform.position.x > 0)
-                    {
-                        control.move.x = Mathf.Clamp(startX - transform.position.x, -1, 1);
-                    }
-                    else
-                    {
-                        control.move.x = Mathf.Clamp(endX - transform.position.x, -1, 1);
-                    }
-                }else if(playerc.bPoison == false && Input.GetKey(KeyCode.UpArrow)){
-                    control.move.x = Mathf.Clamp(player.transform.position.x - transform.position.x, -1, 1);
+                    control.move.x = Mathf.Clamp(startX - transform.position.x, -1, 1);
                 }
+                else
+                {
+                    control.move.x = Mathf.Clamp(endX - transform.position.x, -1, 1);
+                }
+            }
+            else if (playerc.bPoison == false && Input.GetKey(KeyCode.UpArrow))
+            {
+                control.move.x = Mathf.Clamp(player.transform.position.x - transform.position.x, -1, 1);
+
             }
         }
 
