@@ -32,16 +32,17 @@ namespace Platformer.Mechanics
         protected bool stopJump;
         public Collider2D collider2d;
         public AudioSource audioSource;
+        [HideInInspector]
         public Health health;
-        public bool controlEnabled = true;
+        bool controlEnabled = true;
 
-        public float lastY = 0;
-        protected bool jump;
-        protected bool run;
-        protected Vector2 move;
-        protected SpriteRenderer spriteRenderer;
-        protected internal Animator animator;
-        protected readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
+        float lastY = 0;
+        bool jump;
+        bool run;
+        Vector2 move;
+        SpriteRenderer spriteRenderer;
+        internal Animator animator;
+        readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
         int layerWalkUpBlock;
         Rigidbody2D rb;
 
