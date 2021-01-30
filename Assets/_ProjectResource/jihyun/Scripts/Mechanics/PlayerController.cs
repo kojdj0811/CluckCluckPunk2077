@@ -34,7 +34,7 @@ namespace Platformer.Mechanics
         public AudioSource audioSource;
         [HideInInspector]
         public Health health;
-        bool controlEnabled = true;
+        public bool controlEnabled = true;
 
         float lastY = 0;
         bool jump;
@@ -79,6 +79,13 @@ namespace Platformer.Mechanics
                     rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
                     UpdateJumpState();
                 }
+            }else if(tagName == "block_water")  // 물 블러. 3초 동안 30% 이동 속도 감소
+            {
+
+            }
+            else if (tagName == "block_thorn")  // 가시 블럭. 데미지 0.5
+            {
+
             }
         }
 
