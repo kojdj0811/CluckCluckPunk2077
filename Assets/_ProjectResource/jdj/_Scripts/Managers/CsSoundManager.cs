@@ -18,10 +18,6 @@ public enum BgmSoundCode
     Shop_Bgm,
     Boss_Stage_Bgm,
     Ending_Bgm,
-
-
-
-    Last,
 }
 
 public enum FxSoundCode
@@ -34,12 +30,10 @@ public enum FxSoundCode
     Player_Shot,
     Chick_Shot,
     Lazer_Shot,
-    Door_Sound,
-    Chicken_Happy_Sound,
+    Portal_Sound,
+    Item_Sound,
+    Chicken_Sound,
     Chick_Happy_Sound,
-
-
-    Last,
 }
 
 public class CsSoundManager : MonoBehaviour

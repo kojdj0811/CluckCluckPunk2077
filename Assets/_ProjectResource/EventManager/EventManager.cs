@@ -31,6 +31,8 @@ public struct FxEvent : IEvent {
     }
 }
 
+
+
 public struct SoundEvent : IEvent {
 
     public SoundType soundType;
@@ -52,6 +54,10 @@ public struct SoundEvent : IEvent {
         this.fxSoundWorldPosition = fxSoundPosition;
     }
 }
+
+
+
+
 
 #endregion //Events
 
