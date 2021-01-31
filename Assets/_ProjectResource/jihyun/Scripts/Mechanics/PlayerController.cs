@@ -1,81 +1,3 @@
-<<<<<<< HEAD
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Platformer.Gameplay;
-using static Platformer.Core.Simulation;
-using Platformer.Model;
-using Platformer.Core;
-
-// 버프 적용 샘플 코드... 버프/디버프에 따라 필요한 값은 인자(값/유지시간)을 같이 보내주면 됩니다.
-// peMng.add(player_effect.enumPlayerEffectType.HighJumping);
-
-
-namespace Platformer.Mechanics
-{
-    /// <summary>
-    /// This is the main class used to implement control of the player.
-    /// It is a superset of the AnimationController class, but is inlined to allow for any kind of customisation.
-    /// </summary>
-    public class PlayerController : KinematicObject
-    {
-        public AudioClip jumpAudio;
-        public AudioClip respawnAudio;
-        public AudioClip ouchAudio;
-        public GameObject flash;
-        public int jumpForce = 500;
-        [HideInInspector]
-        public int keyCount = 0;
-
-        /// <summary>
-        /// Max horizontal speed of the player.
-        /// </summary>
-        public float maxSpeed = 7;
-        /// <summary>
-        /// Initial jump velocity at the start of a jump.
-        /// </summary>
-        public float jumpTakeOffSpeed = 7;
-
-        public JumpState jumpState = JumpState.Grounded;
-        protected bool stopJump;
-        public Collider2D collider2d;
-        public AudioSource audioSource;
-        [HideInInspector]
-        public Health health;
-        [HideInInspector]
-        public bool bPoison = false;
-        public bool controlEnabled = true;
-        player_effect_manager peMng;
-
-        float lastY = 0;
-        bool jump;
-        bool run;
-        Vector2 move;
-        SpriteRenderer spriteRenderer;
-        internal Animator animator;
-        readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
-        int layerWalkUpBlock;
-        Rigidbody2D rb;
-
-        float DoubleArrowKeyDeltaTime = 0;
-        bool bFirstArrowKey = false;
-        GameObject myChick;
-
-        public Bounds Bounds => collider2d.bounds;
-
-        void Awake()
-        {
-            health = GetComponent<Health>();
-            audioSource = GetComponent<AudioSource>();
-            collider2d = GetComponent<Collider2D>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            animator = GetComponent<Animator>();
-            rb = GetComponent<Rigidbody2D>();
-            peMng = gameObject.AddComponent<player_effect_manager>();
-
-            layerWalkUpBlock = LayerMask.NameToLayer("block");
-            run = false;
-=======
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -137,6 +59,7 @@ namespace Platformer.Mechanics
 
         float DoubleArrowKeyDeltaTime = 0;
         bool bFirstArrowKey = false;
+        GameObject myChick;
 
         public Bounds Bounds => collider2d.bounds;
 
@@ -152,7 +75,6 @@ namespace Platformer.Mechanics
 
             layerWalkUpBlock = LayerMask.NameToLayer("block");
             run = false;
->>>>>>> c83c7bbf4f23a963ba37e32f2a870ecacff9a926
         }
         public void ResetKeyCountFromInitStage()
         {
@@ -224,19 +146,6 @@ namespace Platformer.Mechanics
             {
                 keyCount++;
                 collision.gameObject.SetActive(false);
-<<<<<<< HEAD
-            }
-        }
-
-        protected override void Update()
-        {
-            //if (spriteRenderer.flipX)
-              //  flash.transform.=; 
-
-            if (controlEnabled)
-            {
-                move.x = Input.GetAxis("Horizontal");
-=======
             }
         }
 
@@ -245,7 +154,6 @@ namespace Platformer.Mechanics
             if (controlEnabled)
             {
                 move.x = Input.GetAxis("Horizontal");
->>>>>>> c83c7bbf4f23a963ba37e32f2a870ecacff9a926
                 if (jumpState == JumpState.Grounded && Input.GetButtonDown("Jump"))
                 {
                     jumpState = JumpState.PrepareToJump;
