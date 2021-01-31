@@ -8,6 +8,7 @@ public class cameraMove : MonoBehaviour
     public float shakeRange_UD = 1.0f, shakeSpeed_UD = 0.4f;
     public GameObject player, chick;
     Vector3 camPos;
+    public int StageNum = 1;
 
     void Start()
     {
@@ -51,7 +52,7 @@ public class cameraMove : MonoBehaviour
             transform.position = new Vector3(transform.position.x, -0.5f);
         else if (transform.position.y < 30)
             transform.position = new Vector3(transform.position.x, 19.5f);
-        else if (transform.position.y < 40)
+        else if (transform.position.y < 50)
             transform.position = new Vector3(transform.position.x, 39.5f);
 
        
