@@ -45,9 +45,13 @@ public class gate : MonoBehaviour
     {
         if (other.gameObject.transform == Player.gameObject.transform && playerKeyCount == keyCond)
         {
+<<<<<<< HEAD
             playerKeyCount = 0;
             Player.GetComponent<Platformer.Mechanics.PlayerController>().keyCount = 0;
             cam.StageNum++;
+=======
+            Player.GetComponent<Platformer.Mechanics.PlayerController>().ResetKeyCountFromInitStage();
+>>>>>>> bfeb5e493285290dc18c7dc852653420650da0ad
             stageManger.GetComponent<StageChanger>().stageChanger(index);
             cam.StartCoroutine(cam.move(dir));
         }
