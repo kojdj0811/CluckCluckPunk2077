@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Platformer.Mechanics;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class gate : MonoBehaviour
 {
     public GameObject Cam, stageManger, Player;
     public string direction;
-    public int index, keyCond;
+    public int stage, index, keyCond, rewward, stageNum;
     Vector3 dir;
     cameraMove cam;
 
@@ -29,6 +30,7 @@ public class gate : MonoBehaviour
         int playerKeyCount = Player.GetComponent<Platformer.Mechanics.PlayerController>().keyCount;
         if (other.gameObject.transform == Player.gameObject.transform && playerKeyCount == keyCond)
         {
+<<<<<<< HEAD
             if (Player.GetComponent<Platformer.Mechanics.PlayerController>().isChickHere())
             {
                 Player.GetComponent<Platformer.Mechanics.PlayerController>().ResetKeyCountFromInitStage();
@@ -37,6 +39,19 @@ public class gate : MonoBehaviour
                 //            cam.StartCoroutine(cam.shakeLeftRight());
                 //            cam.StartCoroutine(cam.shakeUpDown());
             }
+=======
+            playerKeyCount = 0;
+            Player.GetComponent<Platformer.Mechanics.PlayerController>().keyCount = 0;
+            cam.StageNum++;
+            if (Player.GetComponent<PlayerController>().bPoison)
+                Player.GetComponent<PlayerController>().bPoison = false;
+            stageManger.GetComponent<StageChanger>().stageChanger(index);
+            Player.GetComponent<PlayerController>().money += rewward;
+            cam.StartCoroutine(cam.move(dir));
+            //            cam.StartCoroutine(cam.shakeLeftRight());
+            //            cam.StartCoroutine(cam.shakeUpDown());
+
+>>>>>>> c83c7bbf4f23a963ba37e32f2a870ecacff9a926
         }
     }
 }
