@@ -13,14 +13,14 @@ namespace Platformer.Mechanics
         /// <summary>
         /// The maximum hit points for the entity.
         /// </summary>
-        public float maxHP = 5.0f;
+        public float maxHP = 10;
 
         /// <summary>
         /// Indicates if the entity should be considered 'alive'.
         /// </summary>
         public bool IsAlive => currentHP > 0;
 
-        public float currentHP = 5.0f;
+        float currentHP;
 
         /// <summary>
         /// Increment the HP of the entity.
