@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Platformer.Mechanics;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,9 +7,7 @@ public class gate : MonoBehaviour
 {
     public GameObject Cam, stageManger, Player;
     public string direction;
-    public int stage;
-    public int index, keyCond;
-    public int stageNum;
+    public int stage, index, keyCond, rewward, stageNum;
     Vector3 dir;
     cameraMove cam;
     int playerKeyCount;
@@ -45,14 +44,13 @@ public class gate : MonoBehaviour
     {
         if (other.gameObject.transform == Player.gameObject.transform && playerKeyCount == keyCond)
         {
-<<<<<<< HEAD
             playerKeyCount = 0;
             Player.GetComponent<Platformer.Mechanics.PlayerController>().keyCount = 0;
             cam.StageNum++;
-=======
-            Player.GetComponent<Platformer.Mechanics.PlayerController>().ResetKeyCountFromInitStage();
->>>>>>> bfeb5e493285290dc18c7dc852653420650da0ad
+            if (Player.GetComponent<PlayerController>().bPoison)
+                Player.GetComponent<PlayerController>().bPoison = false;
             stageManger.GetComponent<StageChanger>().stageChanger(index);
+            Player.GetComponent<PlayerController>().money += rewward;
             cam.StartCoroutine(cam.move(dir));
         }
     }
