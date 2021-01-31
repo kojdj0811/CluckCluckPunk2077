@@ -14,7 +14,7 @@ public class shopUIManager : MonoBehaviour
 
     void Update()
     {
-        int stage = cam.GetComponent<cameraMove>().StageNum;
+        int stage = cam.StageNum;
         if (stage == 4 || stage == 9)
             this.transform.GetChild(0).gameObject.SetActive(true);
         else
