@@ -72,6 +72,7 @@ public class CsSoundManager : MonoBehaviour
         bgmSpeaker = mainCamera.GetComponent<AudioSource>();
         if(bgmSpeaker == null)
             bgmSpeaker = mainCamera.gameObject.AddComponent<AudioSource>();
+        bgmSpeaker.loop = true;
 
 
         EventManager.StartListening(typeof(SoundEvent), SoundListener);
