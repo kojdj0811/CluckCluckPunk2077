@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Platformer.Gameplay;
@@ -73,6 +73,7 @@ namespace Platformer.Mechanics
 
             layerWalkUpBlock = LayerMask.NameToLayer("block");
             run = false;
+
         }
         public void ResetKeyCountFromInitStage()
         {
@@ -186,17 +187,9 @@ namespace Platformer.Mechanics
                 DoubleArrowKeyDeltaTime += Time.deltaTime;
             }
 
-            if (Input.GetKey(KeyCode.R))
-                Reroad();
-
             base.Update();
         }
 
-        void Reroad()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-        }
         void UpdateJumpState()
         {
             jump = false;
