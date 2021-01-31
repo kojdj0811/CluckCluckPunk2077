@@ -8,7 +8,10 @@ public class CsBlinkLogo : MonoBehaviour
     public SpriteRenderer spriteRenderer;
 
     private void OnMouseDown() {
-        SceneManager.LoadScene("stage");
+        SceneManager.LoadScene("stage", LoadSceneMode.Single);
+        SceneManager.LoadScene("Scene_01_2dLight", LoadSceneMode.Additive);
     }
+
+    
 
 }
