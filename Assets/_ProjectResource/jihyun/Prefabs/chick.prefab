@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3191180073465823439}
   - component: {fileID: 3191180073465823438}
   - component: {fileID: 3191180073465823437}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: chick
   m_TagString: chick
   m_Icon: {fileID: 0}
@@ -190,3 +190,4 @@ MonoBehaviour:
   minDistanceXFromPlayer: 2
   minDistanceYFromPlayer: 1.5
   skillSpeed: 0
+  player: {fileID: 0}

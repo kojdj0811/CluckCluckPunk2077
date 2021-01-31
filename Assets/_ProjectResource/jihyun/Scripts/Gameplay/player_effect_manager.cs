@@ -51,6 +51,11 @@ public class player_effect_manager : MonoBehaviour
 
     }
 
+    public void startStage()
+    {
+
+    }
+
     void Update()
     {
         foreach(KeyValuePair<player_effect.enumPlayerEffectType, player_effect> ele in peMap)

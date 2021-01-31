@@ -23,7 +23,10 @@ namespace Platformer.Mechanics
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
         public int jumpForce = 500;
-        public int keyCount;
+        [HideInInspector]
+        public int keyCount = 0;
+        public bool isShield = false;
+        public int money = 0;
 
         /// <summary>
         /// Max horizontal speed of the player.
@@ -71,15 +74,25 @@ namespace Platformer.Mechanics
             layerWalkUpBlock = LayerMask.NameToLayer("block");
             run = false;
         }
+        public void ResetKeyCountFromInitStage()
+        {
+            keyCount = 0;
+            peMng.startStage();
+        }
 
         public void AddHealth(float _value)
         {
             if(_value < 0) // hurt!!
             {
-                health.Decrement( -_value);
-                animator.SetTrigger("hurt");
-                if (health.IsAlive == false)
-                    animator.SetBool("dead", true);
+                if (isShield)
+                    isShield = false;
+                else
+                {
+                    health.Decrement(-_value);
+                    animator.SetTrigger("hurt");
+                    if (health.IsAlive == false)
+                        animator.SetBool("dead", true);
+                }
             }
             else  // healing
             {
@@ -94,18 +107,18 @@ namespace Platformer.Mechanics
             UpdateJumpState();
         }
 
-        void OnCollisionEnter2D(Collision2D collision)
+        void OnTriggerEnter2D(Collider2D collision)
         {
             var tagName = collision.gameObject.tag;
             if (tagName == "enemy")
             {
                 health.Decrement();
             }
-            if (tagName == "block_cloud" && jumpState == JumpState.Grounded)
+            if(tagName == "block_cloud" && jumpState == JumpState.Grounded)
             {
 
             }
-            if (tagName == "block_water" && jumpState == JumpState.Grounded)  // 물 블러. 3초 동안 30% 이동 속도 감소
+            if(tagName == "block_water" && jumpState == JumpState.Grounded)  // 물 블러. 3초 동안 30% 이동 속도 감소
             {
 
             }
@@ -113,16 +126,11 @@ namespace Platformer.Mechanics
             {
 
             }
-        }
-
-        void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.tag == "key")
+            if (tagName == "key")
             {
                 keyCount++;
-                other.gameObject.SetActive(false);
+                collision.gameObject.SetActive(false);
             }
-
         }
 
         protected override void Update()
@@ -239,7 +247,6 @@ namespace Platformer.Mechanics
             }
         }
 
-
         protected override void ComputeVelocity()
         {
             if (jump && IsGrounded)
@@ -276,5 +283,4 @@ namespace Platformer.Mechanics
             Landed
         }
     }
-
 }
