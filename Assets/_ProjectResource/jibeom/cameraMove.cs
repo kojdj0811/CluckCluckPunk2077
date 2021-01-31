@@ -8,6 +8,7 @@ public class cameraMove : MonoBehaviour
     public float shakeRange_UD = 1.0f, shakeSpeed_UD = 0.4f;
     public GameObject player, chick;
     Vector3 camPos;
+    public int StageNum;
 
     void Start()
     {
