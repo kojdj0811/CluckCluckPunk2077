@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_ProjectResource/jdj/_Scenes/Scene_01_2dLight.unity
     guid: 5a5b97145a290fc46ad47484c0438a9c
+  - enabled: 1
+    path: Assets/_ProjectResource/jdj/_Scenes/Scene_00_Manager.unity
+    guid: 9251b5f376db56a4da49f2c4c738f20a
   m_configObjects: {}
