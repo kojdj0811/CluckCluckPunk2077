@@ -24,6 +24,8 @@ namespace Platformer.Mechanics
         public int jumpForce = 500;
         [HideInInspector]
         public int keyCount = 0;
+        public bool isShield = false;
+        public int money = 0;
 
         /// <summary>
         /// Max horizontal speed of the player.
@@ -83,10 +85,15 @@ namespace Platformer.Mechanics
         {
             if(_value < 0) // hurt!!
             {
-                health.Decrement( -_value);
-                animator.SetTrigger("hurt");
-                if (health.IsAlive == false)
-                    animator.SetBool("dead", true);
+                if (isShield)
+                    isShield = false;
+                else
+                {
+                    health.Decrement(-_value);
+                    animator.SetTrigger("hurt");
+                    if (health.IsAlive == false)
+                        animator.SetBool("dead", true);
+                }
             }
             else  // healing
             {
