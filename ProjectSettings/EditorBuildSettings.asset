@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_ProjectResource/jibeom/stage.unity
     guid: ce137af82d6a9ea4fa3694ae46e48594
+  - enabled: 1
+    path: Assets/_ProjectResource/jdj/_Scenes/Scene_01_2dLight.unity
+    guid: 5a5b97145a290fc46ad47484c0438a9c
   m_configObjects: {}
