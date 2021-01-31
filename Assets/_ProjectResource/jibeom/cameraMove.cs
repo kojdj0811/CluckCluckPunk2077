@@ -13,6 +13,7 @@ public class cameraMove : MonoBehaviour
     void Start()
     {
         camPos = this.transform.position;
+        EventManager.TriggerEvent(new SoundEvent(SoundType.Bgm, BgmSoundCode.Stage_Bgm));        
     }
 
     public IEnumerator move(Vector3 dir)
