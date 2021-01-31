@@ -5,15 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-<<<<<<< HEAD
+    path: Assets/_ProjectResource/_Scenes/00_Title.unity
+    guid: d480904f513b028478bb89fbe7cf268c
+  - enabled: 1
     path: Assets/_ProjectResource/jibeom/stage.unity
     guid: ce137af82d6a9ea4fa3694ae46e48594
-=======
-    path: Assets/_ProjectResource/jihyun/Scenes/TestScene.unity
-    guid: df7f5ac72388d40828b319db3b717c91
->>>>>>> d15ed32f89352d43970a2dece86070bf1772d5b8
+  - enabled: 1
+    path: Assets/_ProjectResource/jdj/_Scenes/Scene_01_2dLight.unity
+    guid: 5a5b97145a290fc46ad47484c0438a9c
   m_configObjects: {}
