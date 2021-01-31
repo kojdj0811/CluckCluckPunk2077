@@ -201,6 +201,9 @@ namespace Platformer.Mechanics
                     lastY = transform.position.y;
                     jump = true;
                     stopJump = false;
+
+                    EventManager.TriggerEvent(new SoundEvent(SoundType.Fx, FxSoundCode.Jump_Sound, transform.position));        
+
                     break;
                 case JumpState.Jumping:
                     //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("player"), LayerMask.NameToLayer("ground"), false);
