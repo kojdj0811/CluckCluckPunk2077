@@ -40,8 +40,6 @@ public class gate : MonoBehaviour
                 stageManger.GetComponent<StageChanger>().stageChanger(index);
                 Player.GetComponent<PlayerController>().money += rewward;
                 cam.StartCoroutine(cam.move(dir));
-                //            cam.StartCoroutine(cam.shakeLeftRight());
-                //            cam.StartCoroutine(cam.shakeUpDown());
             }
         }
     }
