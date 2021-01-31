@@ -1,10 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Platformer.Gameplay;
 using static Platformer.Core.Simulation;
 using Platformer.Model;
 using Platformer.Core;
+using UnityEngine.SceneManagement;
 
 // 버프 적용 샘플 코드... 버프/디버프에 따라 필요한 값은 인자(값/유지시간)을 같이 보내주면 됩니다.
 // peMng.add(player_effect.enumPlayerEffectType.HighJumping);
@@ -24,6 +25,8 @@ namespace Platformer.Mechanics
         public int jumpForce = 500;
         [HideInInspector]
         public int keyCount = 0;
+        public bool isShield = false;
+        public int money = 0;
 
         /// <summary>
         /// Max horizontal speed of the player.
@@ -38,9 +41,7 @@ namespace Platformer.Mechanics
         protected bool stopJump;
         public Collider2D collider2d;
         public AudioSource audioSource;
-        [HideInInspector]
         public Health health;
-        [HideInInspector]
         public bool bPoison = false;
         public bool controlEnabled = true;
         player_effect_manager peMng;
@@ -72,6 +73,7 @@ namespace Platformer.Mechanics
 
             layerWalkUpBlock = LayerMask.NameToLayer("block");
             run = false;
+
         }
         public void ResetKeyCountFromInitStage()
         {
@@ -83,10 +85,15 @@ namespace Platformer.Mechanics
         {
             if(_value < 0) // hurt!!
             {
-                health.Decrement( -_value);
-                animator.SetTrigger("hurt");
-                if (health.IsAlive == false)
-                    animator.SetBool("dead", true);
+                if (isShield)
+                    isShield = false;
+                else
+                {
+                    health.Decrement(-_value);
+                    animator.SetTrigger("hurt");
+                    if (health.IsAlive == false)
+                        animator.SetBool("dead", true);
+                }
             }
             else  // healing
             {
