@@ -51,7 +51,14 @@ namespace Platformer.Mechanics
             layerWalkUpBlock = LayerMask.NameToLayer("block");
             playerc = player.GetComponent<PlayerController>();
             lastJumpTime = 0;
+            playerc.setCC(gameObject);
 
+        }
+
+        public void JumpLittle()
+        {
+            if (rb.velocity.y == 0)
+                rb.AddForce(Vector2.up * 100, ForceMode2D.Force);
         }
 
         void Update()

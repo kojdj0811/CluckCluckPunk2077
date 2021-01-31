@@ -21,6 +21,7 @@ namespace Platformer.Mechanics
         public AudioClip jumpAudio;
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
+        public GameObject flash;
         public int jumpForce = 500;
         [HideInInspector]
         public int keyCount = 0;
@@ -57,6 +58,7 @@ namespace Platformer.Mechanics
 
         float DoubleArrowKeyDeltaTime = 0;
         bool bFirstArrowKey = false;
+        GameObject myChick;
 
         public Bounds Bounds => collider2d.bounds;
 
@@ -77,6 +79,20 @@ namespace Platformer.Mechanics
         {
             keyCount = 0;
             peMng.startStage();
+        }
+        public void setCC(GameObject _cc)
+        {
+            myChick = _cc;
+        }
+        public bool isChickHere()
+        {
+            if( Mathf.Abs(myChick.transform.position.x- transform.position.x) < 1.5f)
+                return true;
+            else
+            {
+                myChick.GetComponent<ChickController>().JumpLittle();
+                return false;
+            }
         }
 
         public void AddHealth(float _value)
@@ -129,6 +145,9 @@ namespace Platformer.Mechanics
 
         protected override void Update()
         {
+            //if (spriteRenderer.flipX)
+              //  flash.transform.=; 
+
             if (controlEnabled)
             {
                 move.x = Input.GetAxis("Horizontal");

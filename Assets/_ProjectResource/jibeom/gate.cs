@@ -29,12 +29,14 @@ public class gate : MonoBehaviour
         int playerKeyCount = Player.GetComponent<Platformer.Mechanics.PlayerController>().keyCount;
         if (other.gameObject.transform == Player.gameObject.transform && playerKeyCount == keyCond)
         {
-            Player.GetComponent<Platformer.Mechanics.PlayerController>().ResetKeyCountFromInitStage();
-            stageManger.GetComponent<StageChanger>().stageChanger(index);
-            cam.StartCoroutine(cam.move(dir));
-            //            cam.StartCoroutine(cam.shakeLeftRight());
-            //            cam.StartCoroutine(cam.shakeUpDown());
-
+            if (Player.GetComponent<Platformer.Mechanics.PlayerController>().isChickHere())
+            {
+                Player.GetComponent<Platformer.Mechanics.PlayerController>().ResetKeyCountFromInitStage();
+                stageManger.GetComponent<StageChanger>().stageChanger(index);
+                cam.StartCoroutine(cam.move(dir));
+                //            cam.StartCoroutine(cam.shakeLeftRight());
+                //            cam.StartCoroutine(cam.shakeUpDown());
+            }
         }
     }
 }
