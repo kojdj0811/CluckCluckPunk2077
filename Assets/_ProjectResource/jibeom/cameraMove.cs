@@ -6,6 +6,7 @@ public class cameraMove : MonoBehaviour
 {
     public float cameraSpeed = 0.3f, shakeRange_LR = 1.0f, shakeSpeed_LR = 0.4f;
     public float shakeRange_UD = 1.0f, shakeSpeed_UD = 0.4f;
+    public GameObject player, chick;
     Vector3 camPos;
 
     void Start()
@@ -22,7 +23,9 @@ public class cameraMove : MonoBehaviour
         {
             transform.Translate(dir * cameraSpeed);
             if (Mathf.Abs(pos.x - transform.position.x) >= 30 || Mathf.Abs(pos.y - transform.position.y) >= 20)
+            {
                 break;
+            }
             cameraSpeed -= slow;
             slow -= 0.02f;
             if (slow <= 0.0f && f_slow)
@@ -32,9 +35,55 @@ public class cameraMove : MonoBehaviour
                 f_slow = false;
                 cameraSpeed = 0.02f;
             }
-            Debug.Log(cameraSpeed);
             yield return null;
         }
+
+        if (transform.position.x < 15)
+            transform.position = new Vector3(3.3f, transform.position.y);
+        else if (transform.position.x < 45)
+            transform.position = new Vector3(33.3f, transform.position.y);
+        else
+            transform.position = new Vector3(63.3f, transform.position.y);
+
+        if (transform.position.y < 10)
+            transform.position = new Vector3(transform.position.x, -0.5f);
+        else if (transform.position.y < 30)
+            transform.position = new Vector3(transform.position.x, 19.5f);
+        else if (transform.position.y < 40)
+            transform.position = new Vector3(transform.position.x, 39.5f);
+
+       
+        player.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+        player.gameObject.GetComponent<Rigidbody2D>().mass = 0;
+        chick.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+        chick.gameObject.GetComponent<Rigidbody2D>().mass = 0;
+
+        player.gameObject.GetComponent<Collider2D>().isTrigger = true;
+        chick.gameObject.GetComponent<Collider2D>().isTrigger = true;
+
+        player.transform.position = new Vector3(this.transform.position.x - 15.0f, this.transform.position.y - 6, player.transform.position.z);
+        chick.transform.position = new Vector3(this.transform.position.x - 16.0f, this.transform.position.y - 6, player.transform.position.z);
+
+
+        while (true)
+        {
+            player.transform.Translate(Vector3.right * 0.1f);
+            chick.transform.Translate(Vector3.right * 0.1f);
+            if (player.transform.position.x >= this.transform.position.x - 9)
+                break;
+            yield return null;
+        }
+        player.gameObject.GetComponent<Collider2D>().isTrigger = false;
+        chick.gameObject.GetComponent<Collider2D>().isTrigger = false;
+
+        player.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+        player.gameObject.GetComponent<Rigidbody2D>().mass = 1;
+        chick.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+        chick.gameObject.GetComponent<Rigidbody2D>().mass = 1;
+
+
+        chick.transform.position = new Vector3(this.transform.position.x - 10.0f, player.transform.position.y, player.transform.position.z);
+        player.transform.position = new Vector3(this.transform.position.x - 9.0f, player.transform.position.y, player.transform.position.z);
         slow = 0.1f;
     }
 
